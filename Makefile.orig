@@ -3,6 +3,7 @@ INCLUDE=-I. -I/usr/local/include -I/usr/java/default/include -I/usr/java/default
 LINKS=-L/usr/local/lib
 LIBS=-lbcm2835 -lm -lsht1x
 CFLAGS=$(INCLUDE) $(LINKS) $(LIBS)
+DESTDIR=/usr/local/lib
 
 Sht1xSensor: Sht1xSensor.c
 	$(CC) -fPIC -c Sht1xSensor.c $(CFLAGS)
@@ -10,3 +11,6 @@ Sht1xSensor: Sht1xSensor.c
 
 clean:
 	rm -f *.o *.so
+
+install: libshtx1-java.so
+	install libsht1x-java.so $(DESTDIR)
