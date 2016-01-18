@@ -11,7 +11,7 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getTemperatureInCelcius
 {
     unsigned char noError = 1;  
 	unsigned short int sensorTicks;
-	
+	jclass Exception = (*env)->FindClass(env, "java/lang/Exception");
 	
 	// Wait at least 11ms after power-up (chapter 3.1)
 	delay(20); 
@@ -25,13 +25,13 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getTemperatureInCelcius
 	// Request Temperature measurement
 	noError = SHT1x_Measure_Start( SHT1xMeaT );
 	if (!noError) {
-		return;
+		(*env)->ThrowNew(env, Exception, "Failed to send a temperature measure start command");
 	}
 		
 	// Read Temperature measurement
 	noError = SHT1x_Get_Measure_Value( (unsigned short int*) &sensorTicks );
 	if (!noError) {
-		return;
+		(*env)->ThrowNew(env, Exception, "Failed to calulate a temperature value");
 	}
 
     // Calculate the temp based on the reading
@@ -61,6 +61,7 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getHumidity
 {
 	unsigned char noError = 1;
 	value humi_val,temp_val;
+	jclass Exception = (*env)->FindClass(env, "java/lang/Exception");
 
     // Wait at least 11ms after power-up (chapter 3.1)
 	delay(20); 
@@ -74,25 +75,25 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getHumidity
 	// Request Temperature measurement
 	noError = SHT1x_Measure_Start( SHT1xMeaT );
 	if (!noError) {
-		return;
+		(*env)->ThrowNew(env, Exception, "Failed to send a temperature measure start command");
 	}
 		
 	// Read Temperature measurement
 	noError = SHT1x_Get_Measure_Value( (unsigned short int*) &temp_val.i );
 	if (!noError) {
-		return;
+		(*env)->ThrowNew(env, Exception, "Failed to calulate a temperature value");
 	}
 
 	// Request Humidity Measurement
 	noError = SHT1x_Measure_Start( SHT1xMeaRh );
 	if (!noError) {
-		return;
+		(*env)->ThrowNew(env, Exception, "Failed to send a humidity measure start command");
 	}
 		
 	// Read Humidity measurement
 	noError = SHT1x_Get_Measure_Value( (unsigned short int*) &humi_val.i );
 	if (!noError) {
-		return;
+		(*env)->ThrowNew(env, Exception, "Failed to calulate a humidity value");
 	}
 
 	// Convert intergers to float and calculate true values
