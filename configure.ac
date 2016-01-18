@@ -8,7 +8,7 @@ AM_INIT_AUTOMAKE
 AC_LIBTOOL_DLOPEN
 AC_CONFIG_FILES([Makefile])
 # AC_CONFIG_SRCDIR([Sht1xSensor.h])
-# AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
@@ -18,8 +18,7 @@ AC_PROG_LIBTOOL
 
 # Checks for header files.
 AX_JNI_INCLUDE_DIR
-for JNI_INCLUDE_DIR in $JNI_INCLUDE_DIRS
-do
+for JNI_INCLUDE_DIR in $JNI_INCLUDE_DIRS; do
 	CPPFLAGS="$CPPFLAGS -I$JNI_INCLUDE_DIR"
 done
 
@@ -28,5 +27,4 @@ AC_CHECK_HEADER_STDBOOL
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
