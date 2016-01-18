@@ -1,3 +1,6 @@
+# project and distribution files
+sht1x-java-*
+
 # Object files
 *.o
 *.ko
@@ -30,3 +33,30 @@
 
 # Debug files
 *.dSYM/
+
+# http://www.gnu.org/software/automake
+Makefile
+Makefile.in
+
+# http://www.gnu.org/software/autoconf
+autom4te.cache
+autoscan.log
+autoscan-*.log
+aclocal.m4
+compile
+/config.*
+configure
+configure.scan
+depcomp
+install-sh
+missing
+stamp-h1
+
+# m4
+.deps/
+m4
+
+# libtool
+libtool
+ltmain.sh
+.libs/
