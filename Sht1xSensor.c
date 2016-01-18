@@ -25,13 +25,13 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getTemperatureInCelcius
 	// Request Temperature measurement
 	noError = SHT1x_Measure_Start( SHT1xMeaT );
 	if (!noError) {
-		throw "Error sending Measurement Start command";
+		return;
 	}
 		
 	// Read Temperature measurement
 	noError = SHT1x_Get_Measure_Value( (unsigned short int*) &sensorTicks );
 	if (!noError) {
-		throw "Error getting measurement value";
+		return;
 	}
 
     // Calculate the temp based on the reading
@@ -59,6 +59,9 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getTemperatureInFahrenheit
 JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getHumidity
   (JNIEnv *env, jobject obj)
 {
+	unsigned char noError = 1;
+	value humi_val,temp_val;
+
     // Wait at least 11ms after power-up (chapter 3.1)
 	delay(20); 
 	
@@ -71,25 +74,25 @@ JNIEXPORT jfloat JNICALL Java_Sht1xSensor_getHumidity
 	// Request Temperature measurement
 	noError = SHT1x_Measure_Start( SHT1xMeaT );
 	if (!noError) {
-		throw "Error sending temperature Measurement Start command";
+		return;
 	}
 		
 	// Read Temperature measurement
 	noError = SHT1x_Get_Measure_Value( (unsigned short int*) &temp_val.i );
 	if (!noError) {
-		throw "Error getting temperature measurement value";
+		return;
 	}
 
 	// Request Humidity Measurement
 	noError = SHT1x_Measure_Start( SHT1xMeaRh );
 	if (!noError) {
-		throw "Error sending humidity Measurement Start command";
+		return;
 	}
 		
 	// Read Humidity measurement
 	noError = SHT1x_Get_Measure_Value( (unsigned short int*) &humi_val.i );
 	if (!noError) {
-		throw "Error getting humidity measurement value";
+		return;
 	}
 
 	// Convert intergers to float and calculate true values
